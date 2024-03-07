@@ -42,8 +42,10 @@
 #cmakedefine _GLFW_COCOA
 // Define this to 1 if building GLFW for Wayland
 #cmakedefine _GLFW_WAYLAND
-// Define this to 1 if building GLFW for OSMesa
-#cmakedefine _GLFW_OSMESA
+// Define this to 1 if building GLFW for Mir
+#cmakedefine _GLFW_MIR
+// Define this to 1 if building GLFW for EGLDevice
+#cmakedefine _GLFW_EGLDEVICE
 
 // Define this to 1 if building as a shared library / dynamic library / DLL
 #cmakedefine _GLFW_BUILD_DLL
@@ -55,4 +57,3 @@
 
 // Define this to 1 if the libc supports memfd_create()
 #cmakedefine HAVE_MEMFD_CREATE
-

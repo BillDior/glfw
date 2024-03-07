@@ -157,8 +157,19 @@ elseif (APPLE)
     set(_GLFW_COCOA 1)
     message(STATUS "Using Cocoa for window creation")
 elseif (UNIX)
-    set(_GLFW_X11 1)
-    message(STATUS "Using X11 for window creation")
+    if (GLFW_USE_WAYLAND)
+        set(_GLFW_WAYLAND 1)
+        message(STATUS "Using Wayland for window creation")
+    elseif (GLFW_USE_MIR)
+        set(_GLFW_MIR 1)
+        message(STATUS "Using Mir for window creation")
+    elseif (GLFW_USE_EGLDEVICE)
+        set(_GLFW_EGLDEVICE 1)
+        message(STATUS "Using EGLDevice for window creation")
+    else()
+        set(_GLFW_X11 1)
+        message(STATUS "Using X11 for window creation")
+    endif()
 else()
     message(FATAL_ERROR "No supported platform was detected")
 endif()
@@ -281,7 +292,17 @@ if (_GLFW_WAYLAND)
 endif()
 
 #--------------------------------------------------------------------
-# Use OSMesa for offscreen context creation
+# Use EGLDevice for window creation
+#--------------------------------------------------------------------
+if (_GLFW_EGLDEVICE)
+
+    list(APPEND glfw_LIBRARIES "-ldrm")
+    list(APPEND glfw_LIBRARIES "-lpthread")
+
+endif()
+
+#--------------------------------------------------------------------
+# Use Mir for window creation
 #--------------------------------------------------------------------
 if (_GLFW_OSMESA)
     find_package(OSMesa REQUIRED)
